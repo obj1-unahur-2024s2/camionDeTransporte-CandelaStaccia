@@ -1,9 +1,80 @@
 import cosas.*
 
-describe "group of test for cosas" {
 
-  test "first test" {
-    assert.that(true)
+describe "Test de cosas" {
+
+  test "Test de paquete de ladrillos con 12 ladrillos" {
+    paqueteLadrillos.cantidadLadrillos(12)
+    
+    assert.equals(24, paqueteLadrillos.peso())
+    assert.equals(1, paqueteLadrillos.bultos())
   }
 
+  test "Consecuencia de paquete de ladrillos con 12 ladrillos" {
+    paqueteLadrillos.cantidadLadrillos(12)
+    
+    paqueteLadrillos.consecuencia()
+
+    assert.equals(48, paqueteLadrillos.peso())
+    assert.equals(1, paqueteLadrillos.bultos())
+  }
+
+  test "Batería antiaérea sin cargar" {
+    assert.equals(200, bateriaAntiaerea.peso())
+    assert.equals(0, bateriaAntiaerea.peligrosidad())
+    assert.equals(1, bateriaAntiaerea.bultos())
+  }
+
+  test "Batería antiaérea cargada por la consecuencia" {
+    bateriaAntiaerea.consecuencia()
+    assert.equals(300, bateriaAntiaerea.peso())
+    assert.equals(100, bateriaAntiaerea.peligrosidad())
+    assert.equals(2, bateriaAntiaerea.bultos())
+  }
+
+  test "Contenedor portuario cargado de arena a granel, bumblebee y knight rider" {
+    arenaAGranel.peso(20)
+    
+    contenedorPortuario.agregar(arenaAGranel)
+    contenedorPortuario.agregar(bumblebee)
+    contenedorPortuario.agregar(knightRider)
+
+    assert.equals([arenaAGranel, bumblebee, knightRider], contenedorPortuario.cosasAdentro())
+    assert.equals(1420, contenedorPortuario.peso())
+    assert.equals(15, contenedorPortuario.peligrosidad())
+    assert.equals(5, contenedorPortuario.bultos())
+  }
+
+  test "Contenedor portuario cargado de arena a granel, bumblebee y knight rider con consecuencia" {
+    arenaAGranel.peso(20)
+    contenedorPortuario.agregar(arenaAGranel)
+    contenedorPortuario.agregar(bumblebee)
+    contenedorPortuario.agregar(knightRider)
+
+    contenedorPortuario.consecuencia()
+
+    assert.equals([arenaAGranel, bumblebee, knightRider], contenedorPortuario.cosasAdentro())
+    assert.equals(1410, contenedorPortuario.peso())
+    assert.equals(30, contenedorPortuario.peligrosidad())
+    assert.equals(5, contenedorPortuario.bultos())
+  }
+
+  test "Embalaje con residuos radioactivos con 30 kg de peso" {
+    residuosRadioactivos.peso(30)
+    
+    embalajeDeSeguridad.cosaEnvuelta(residuosRadioactivos)
+
+    assert.equals(30, embalajeDeSeguridad.peso())
+    assert.equals(100, embalajeDeSeguridad.peligrosidad())
+  }
+
+  test "Embalaje con residuos radioactivos con 30 kg de peso y con consecuencia" {
+    residuosRadioactivos.peso(30)
+    residuosRadioactivos.consecuencia()
+    
+    embalajeDeSeguridad.cosaEnvuelta(residuosRadioactivos)
+
+    assert.equals(45, embalajeDeSeguridad.peso())
+    assert.equals(100, embalajeDeSeguridad.peligrosidad())
+  }
 }

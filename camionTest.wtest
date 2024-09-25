@@ -1,9 +1,73 @@
+import cosas.*
 import camion.*
 
-describe "group of test for camion" {
-
-  test "first test" {
-    assert.that(true)
+describe "Tests del camión" {
+  method initialize() {
+    bumblebee.transformate(robot)
+    arenaAGranel.peso(150)
+    bateriaAntiaerea.cargar()
+    paqueteLadrillos.cantidadLadrillos(80)
+    embalajeDeSeguridad.cosaEnvuelta(paqueteLadrillos)
+    
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    camion.cargar(bateriaAntiaerea)
+    camion.cargar(embalajeDeSeguridad)
   }
 
+  test "El camión pesa 2400 kilos" {
+    assert.equals(2400, camion.peso())
+  }
+
+  test "Ninguna cosa es impar" {
+    assert.notThat(camion.lasCosasSonImpares())
+  }
+
+  test "Hay algo que pesa 300 kilos" {
+    assert.that(camion.algoPesa(300))
+  }
+
+  test "No hay algo que pesa 1000 kilos" {
+    assert.notThat(camion.algoPesa(1000))
+  }
+
+  test "No hay una cosa con peligrosidad 3" { //da error porque es un find
+    assert.equals([], camion.cosaConPeligrosidad(3))
+  }
+
+  test "Hay una cosa con peligrosidad 1" {
+    assert.equals(arenaAGranel, camion.cosaConPeligrosidad(1))
+  }
+
+  test "No hay cosas que superen la peligrosidad de la bateria antiarea" {
+    assert.equals([], camion.cosasQueSuperanPeligrosidad(300))
+  }
+
+  test "Hay cosas que superan la peligrosidad de bumblebee" {
+    assert.equals([bateriaAntiaerea], camion.cosasQueSuperanPeligrosidad(30))
+  }
+
+  test "Bumblebee y la bateria antiaerea superan el nivel de peligrosidad de la arena a granel" {
+      assert.equals([bumblebee, bateriaAntiaerea], camion.cosasQueSuperanNivelDe(arenaAGranel))
+  }
+  
+  test "No hay cosas que superen el nivel de peligrosidad de la bateria antiarea" {
+    assert.equals([], camion.cosasQueSuperanNivelDe(bateriaAntiaerea))
+  }
+
+  test "El camión no está excedido de peso" {
+    assert.notThat(camion.estaExcedido())
+  }
+
+  test "El camión puede circular con un nivel de peligrosidad maximo de 500" {
+    assert.that(camion.puedeCircular(500))
+  }
+
+  test "El camión no puede circular con un nivel de peligrosidad maximo de 100" {
+    assert.notThat(camion.puedeCircular(100))
+  }
+
+  test "El camión cuenta con 7 bultos" {
+    assert.equals(7, camion.bultos())
+  }
 }

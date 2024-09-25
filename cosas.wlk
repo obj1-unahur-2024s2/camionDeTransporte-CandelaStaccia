@@ -6,36 +6,29 @@ object knightRider {
 }
 
 object bumblebee {
-  var estaRobot = false
+  var estado = auto
 
-  method transformate() {
-    estaRobot = not estaRobot
+  method transformate(unEstado) {
+    estado = unEstado
   } 
 
   method peso() = 800
 
-  method peligrosidad() { // = if(estaRobot) 30 else 15
-    if(estaRobot) 
-        return 30
-    else
-        return 15
-  } 
-
-  /*
-    var estado = auto --> obj
-
-    method transformate(unEstado) {
-        estado = unEstado --> un obj que entiende el mensaje peligrosidad(robot / auto)
-    }
-
-    method peligrosidad() = estado.peligrosidad()
-  */
+  method peligrosidad() = estado.peligrosidad()
 
   method bultos() = 2
 
   method consecuencia() {
-    estado = robot //CAMBIAR LO DEMAS
+    estado = robot
   }
+}
+
+object auto {
+  method peligrosidad() = 15
+}
+
+object robot {
+  method peligrosidad() = 30
 }
 
 object paqueteLadrillos {
@@ -71,10 +64,6 @@ object arenaAGranel {
 object bateriaAntiaerea {
   var tieneMisiles = false
 
-  method alterarMisiles() {
-    tieneMisiles = not tieneMisiles
-  }
-
   method peso() { // = if(tieneMisiles) 300 else 200
     if(tieneMisiles)
         return 300
@@ -89,7 +78,7 @@ object bateriaAntiaerea {
         return 0
   }
 
-  /*
+  
   method cargar() {
     tieneMisiles = true
   }
@@ -97,7 +86,6 @@ object bateriaAntiaerea {
   method descargar() {
     tieneMisiles = false
   }
-  */
 
   method bultos() {
     if(tieneMisiles) return 2
@@ -105,9 +93,8 @@ object bateriaAntiaerea {
   }
 
   method consecuencia() {
-    self.cargar() //CAMBIAR LO DEMAS
+    self.cargar() 
   }
-
 }
 
 object contenedorPortuario {

@@ -1,3 +1,5 @@
+import cosas.*
+
 object camion {
     const property cosas = []
 
@@ -20,7 +22,8 @@ object camion {
 
     method cosasQueSuperanPeligrosidad(unValor) = cosas.filter({c => c.peligrosidad() > unValor})
 
-    method cosasQueSuperanNivelDe(unaCosa) = cosas.filter({c => c.peligrosidad() > unaCosa.peligrosidad()}) 
+    method cosasQueSuperanNivelDe(unaCosa) = self.cosasQueSuperanPeligrosidad(unaCosa.peligrosidad()) 
+    //cosas.filter({c => c.peligrosidad() > unaCosa.peligrosidad()}) <-- asi hice yo
     //self.cosasQueSuperanPeligrosidad(unaCosa.peligrosidad()) <-- BIEN
 
     method estaExcedido() = self.peso() > 2500
@@ -34,4 +37,5 @@ object camion {
         return cosas.all({c => c.peligrosidad() < unNivelPeligrosidad})
     }
 
+    method bultos() = cosas.sum({c => c.bultos()})
 }
