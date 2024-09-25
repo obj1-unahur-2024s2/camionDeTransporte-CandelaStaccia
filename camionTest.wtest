@@ -70,4 +70,4 @@ describe "Tests del camión" {
   test "El camión cuenta con 7 bultos" {
     assert.equals(7, camion.bultos())
   }
-}
+} 
